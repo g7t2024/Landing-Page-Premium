@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Landing Page Premium</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bg: #0f1115;
+            --bg-soft: #161a22;
+            --bg-card: #1b212c;
+            --text: #f5f7fb;
+            --muted: #a7b0c0;
+            --primary: #00ff88;
+            --primary-strong: #00e676;
+            --border: rgba(255, 255, 255, 0.08);
+            --shadow-neon: 0 0 10px rgba(0, 255, 136, 0.7), 0 0 22px rgba(0, 255, 136, 0.35), 0 0 40px rgba(0, 255, 136, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            min-height: 100%;
+            background: #000;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: transparent;
+        }
+
+        .page-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            background: #000;
+            pointer-events: none;
+        }
+
+        .page-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.35;
+        }
+
+        .page-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at top, rgba(0, 255, 136, 0.12), transparent 35%),
+                linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.62));
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+            background: rgba(15, 17, 21, 0.78);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--primary);
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.75), 0 0 18px rgba(0, 255, 136, 0.35);
+            transition: transform 0.3s ease;
+        }
+
+        header h1:hover {
+            transform: scale(1.04);
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            padding-right: 24px;
+        }
+
+        header nav a {
+            color: #dfffea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.02em;
+            transition: color 0.25s ease, transform 0.25s ease, text-shadow 0.25s ease;
+        }
+
+        header nav a:hover {
+            color: var(--primary);
+            transform: translateY(-1px);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.55);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 170px 20px 110px;
+            position: relative;
+        }
+
+        .hero h2 {
+            max-width: 850px;
+            margin: 0 auto 18px;
+            font-size: clamp(2.5rem, 5vw, 4.1rem);
+            line-height: 1.05;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: #ffffff;
+            text-shadow: 0 0 18px rgba(0, 255, 136, 0.18);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: 0 auto 32px;
+            font-size: 18px;
+            color: var(--muted);
+            animation: fadeIn 1.8s ease-in-out;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), #7dffbf);
+            padding: 15px 34px;
+            border-radius: 14px;
+            color: #08110c;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            box-shadow: 0 12px 30px rgba(0, 255, 136, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 35px rgba(0, 255, 136, 0.28);
+            filter: brightness(1.02);
+        }
+
+        .video-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 20px 60px;
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+            border-radius: 22px;
+            overflow: hidden;
+            background-color: rgba(13, 16, 22, 0.82);
+            border: 1px solid rgba(0, 255, 136, 0.16);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.02), 0 18px 50px rgba(0, 0, 0, 0.35), 0 0 28px rgba(0, 255, 136, 0.12);
+        }
+
+        iframe {
+            width: 100%;
+            height: 540px;
+            border: none;
+            display: block;
+            background: #0b0f14;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+            padding: 40px 20px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .benefit {
+            text-align: center;
+            padding: 32px 24px;
+            background: linear-gradient(180deg, rgba(17, 21, 29, 0.72), rgba(17, 21, 29, 0.58));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .benefit:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 255, 136, 0.24);
+            box-shadow: 0 16px 35px rgba(0,0,0,0.28), 0 0 18px rgba(0, 255, 136, 0.08);
+        }
+
+        .benefit i {
+            font-size: 46px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: inline-block;
+            transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
+        }
+
+        .benefit:hover i {
+            transform: scale(1.08);
+            color: #fff;
+            text-shadow: 0 0 18px rgba(0, 255, 136, 0.45);
+        }
+
+        .benefit h3 {
+            margin: 10px 0 8px;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .benefit p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        footer {
+            background: rgba(13, 17, 23, 0.78);
+            text-align: center;
+            padding: 36px 20px 44px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        footer p {
+            margin: 0 0 18px;
+            font-size: 15px;
+        }
+
+        footer .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        footer .social-icons a {
+            width: 56px;
+            height: 56px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.24);
+            box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.08), 0 0 12px rgba(0, 255, 136, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        footer .social-icons a i {
+            font-size: 24px;
+        }
+
+        footer .social-icons a:hover {
+            transform: translateY(-4px) scale(1.06);
+            color: #ffffff;
+            border-color: rgba(0, 255, 136, 0.85);
+            box-shadow: var(--shadow-neon);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 18px 20px;
+            }
+
+            header nav {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding-right: 0;
+            }
+
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+            iframe {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding-top: 190px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            iframe {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-bg" aria-hidden="true">
+        <video autoplay muted loop playsinline id="bgVideo">
+            <source src="https://www.hastapublica.com.br/util/content/videos/Video_13598-78.MP4.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo de fundo.
+        </video>
+    </div>
+
+    <div class="page-content">
+        <header>
+            <h1>Marca Premium</h1>
+            <nav>
+                <a href="#hero">Home</a>
+                <a href="#video">Assista</a>
+                <a href="#benefits">Benefícios</a>
+                <a href="#contact">Contato</a>
+            </nav>
+        </header>
+
+        <section class="hero" id="hero">
+            <h2>Descubra uma Nova Experiência Digital</h2>
+            <p>Assista ao nosso vídeo e mergulhe no futuro da tecnologia. Inovação e sofisticação em um único clique.</p>
+            <a href="#video" class="cta" id="playButton">Assistir Agora</a>
+        </section>
+
+        <section class="video-section" id="video">
+            <div class="video-container">
+                <iframe
+                    id="videoFrame"
+                    title="Vídeo institucional"
+                    srcdoc="<!DOCTYPE html><html lang='pt-BR'><head><meta charset='UTF-8'><style>body{margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#0b0f14;color:#dfffea;font-family:Arial,sans-serif;text-align:center;padding:20px}div{max-width:560px}strong{color:#00ff88}</style></head><body><div><strong>Vídeo pronto para assistir</strong><br>Clique em <strong>Assistir Agora</strong> para iniciar a reprodução.</div></body></html>"
+                    data-src="https://www.dailymotion.com/embed/video/xa58lla?autoplay=1&mute=1"
+                    allow="autoplay; encrypted-media; fullscreen"
+                    allowfullscreen
+                    loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <section class="benefits" id="benefits">
+            <div class="benefit">
+                <i class="bi bi-cpu"></i>
+                <h3>Inovação</h3>
+                <p>Fique à frente com tecnologia de ponta.</p>
+            </div>
+            <div class="benefit">
+                <i class="bi bi-shield-check"></i>
+                <h3>Segurança</h3>
+                <p>Plataforma confiável para você.</p>
+            </div>
+            <div class="benefit">
+                <i class="bi bi-lightning-charge"></i>
+                <h3>Desempenho</h3>
+                <p>Rápida e eficiente, sem interrupções.</p>
+            </div>
+        </section>
+
+        <footer id="contact">
+            <p>&copy; 2026 Marca Premium. Todos os direitos reservados.</p>
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter X"><i class="bi bi-twitter-x"></i></a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const playButton = document.getElementById('playButton');
+            const videoFrame = document.getElementById('videoFrame');
+            const videoSection = document.getElementById('video');
+            let videoStarted = false;
+
+            playButton.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                if (!videoStarted) {
+                    videoFrame.removeAttribute('srcdoc');
+                    videoFrame.src = videoFrame.dataset.src;
+                    videoStarted = true;
+                    playButton.textContent = 'Vídeo Carregado';
+                }
+
+                videoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        });
+    </script>
+</body>
+</html>
